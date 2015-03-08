@@ -1,4 +1,4 @@
-┌─────────────────────────────────────────────────────────────────DRAFT 0.1.1──┐
+┌─────────────────────────────────────────────────────────────────DRAFT 0.1.2──┐
 │                                                                              │
 │          _____ _____ _____     __    _ _          _____ _       _            │
 │         |_   _|     | __  |___|  |  |_| |_ ___   |     | |_ ___| |_          │
@@ -9,15 +9,15 @@
 └──╣                       Initial Trust Key Exchange                       ╠──┘
    ╚════════════════════════════════════════════════════════════════════════╝   
                                                                                 
- ╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴ 
+ ------------------------------------------------------------------------------ 
                                                                                 
  This process flow is used to store an initial set of trusted pub keys. Later   
  keys may be transferred via the network, using the current set of trusted keys 
  for verification (thereby adding bouncing, and extra anonymity).               
                                                                                 
- ╶╶╶╶╶╶╶╶╶╶╶╶╶╶╶╶╶╶╶╶╶╶╶╶╶╶╶╶╶╶╶╶╶╶╶╶╶╶╶╶╶╶╶╶╶╶╶╶╶╶╶╶╶╶╶╶╶╶╶╶╶╶╶╶╶╶╶╶╶╶╶╶╶╶╶╶╶╶ 
+ ------------------------------------------------------------------------------ 
                                                                                 
-┌────────Requester────────┐┌─────────Trust 1─────────┐ ╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴ 
+┌────────Requester────────┐┌─────────Trust 1─────────┐ ------------------------ 
 │┌───────────────────────┐││                         │                          
 ││        Install        │├┼OOB─Req.────┐            │ Can have as many "trust  
 │└───────────────────────┘││            ▼            │ 1" connections as        
@@ -26,9 +26,9 @@
 │                         │││       ephemeral       ││ requester to the trust   
 │                         ││└───────────────────────┘│ provider                 
 │┌───────────────────────┐││            │            │                          
-││   Generate key pair   │││            │            │ ╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴ 
+││   Generate key pair   │││            │            │ ------------------------ 
 │└───────────────────────┘││            │            │                          
-│┌───────────────────────┐││            │            │ ╴╴Human Ephemeral ╴╴╴╴╴╴ 
+│┌───────────────────────┐││            │            │ - Human Ephemeral ------ 
 ││ Input address, human  │││            │            │                          
 ││       ephemeral       │◀┼OOB─Secure──┘            │ A human readable, semi   
 │└───────────────────────┘││                         │ memorable ephemeral key  
@@ -36,29 +36,29 @@
 │                         ││║  5 minutes elapsed?   ║│ eg: excited running      
 │                         ││╚═══════════Y═══════════╝│ shiba                    
 │                         ││            │            │                          
-│                         ││            ▼            │ ╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴ 
+│                         ││            ▼            │ ------------------------ 
 │                         ││┌───────────────────────┐│                          
-│                         │││Destroy human ephemeral││ ╴╴OOB Secure ╴╴╴╴╴╴╴╴╴╴╴ 
+│                         │││Destroy human ephemeral││ - OOB Secure ----------- 
 │                         ││└───────────────────────┘│                          
 │┌───────────────────────┐││                         │ Should be transmitted    
 ││    Message pub key    │││                         │ over a secure channel,   
 ││enc. w/ human ephemeral│├┼DIRECT─Con.─┐            │ such that it can not be  
 │└───────────────────────┘││            ▼            │ tampered with            
 │                         ││┌───────────────────────┐│                          
-│                         │││  Decrypt, validate,   ││ ╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴ 
+│                         │││  Decrypt, validate,   ││ ------------------------ 
 │                         │││  store req. pub key   ││                          
-│                         ││└───────────────────────┘│ ╴╴Keys Bundle Size ╴╴╴╴╴ 
+│                         ││└───────────────────────┘│ - Keys Bundle Size ----- 
 │                         ││┌───────────────────────┐│                          
 │                         │││Destroy human ephemeral││ As many keys as          
 │                         ││└───────────────────────┘│ possible, up to 5        
 │                         ││┌───────────────────────┐│                          
-│                         │││Bundle (max) 5 pub keys││ ╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴ 
+│                         │││Bundle (max) 5 pub keys││ ------------------------ 
 │                         │││ enc. w/ reqr. pub key ││                          
-│                         ││└───────────────────────┘│ ╴╴Terms ╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴ 
+│                         ││└───────────────────────┘│ - Terms ---------------- 
 │┌───────────────────────┐││            │            │                          
 ││  Decrypt, validate,   │││            │            │ OOB: Out Of Band         
 ││    store pub keys     │◀┼DIRECT─Con.─┘            │ DIRECT: Host to Host     
 │└───────────────────────┘││                         │ req: Request             
 │                         ││                         │ reqr: Requester          
 │                         ││                         │                          
-└─────────────────────────┘└─────────────────────────┘ ╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴ 
+└─────────────────────────┘└─────────────────────────┘ ------------------------ 
